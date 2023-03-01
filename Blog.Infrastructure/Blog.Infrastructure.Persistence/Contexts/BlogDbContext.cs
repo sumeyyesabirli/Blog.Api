@@ -13,7 +13,6 @@ namespace Blog.Infrastructure.Persistence.Contexts
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
         }
 
         public DbSet<Post> Posts{ get; set; }

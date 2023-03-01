@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blog.Core.Domain.Entites
+namespace Blog.Core.RequestManager.Commands.Requests
 {
-    public class Post:BaseEntity
+    public class UpdatePostRequestModel
     {
-         public string Title { get; set; }
+        public Guid Id { get; set; }
+        public string Title { get; set; }
         public string Context { get; set; }
         public string Sunmary { get; set; }
         public string UrlHandle { get; set; }

@@ -18,8 +18,4 @@
     <ProjectReference Include="..\..\Blog.Infrastructure\Blog.Infrastructure.Persistence\Blog.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

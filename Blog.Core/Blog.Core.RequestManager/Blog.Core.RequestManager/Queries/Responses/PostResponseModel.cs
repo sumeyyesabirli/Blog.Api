@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blog.Core.Domain.Entites
+namespace Blog.Core.RequestManager.Queries.Responses
 {
-    public class Post:BaseEntity
+    public class PostResponseModel:BaseResponse
     {
-         public string Title { get; set; }
+        public string Title { get; set; }
         public string Context { get; set; }
         public string Sunmary { get; set; }
         public string UrlHandle { get; set; }
