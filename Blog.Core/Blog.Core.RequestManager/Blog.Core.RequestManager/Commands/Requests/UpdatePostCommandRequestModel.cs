@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.RequestManager.Commands.Requests
 {
-    public class UpdatePostRequestModel
+    public class UpdatePostCommandRequestModel
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

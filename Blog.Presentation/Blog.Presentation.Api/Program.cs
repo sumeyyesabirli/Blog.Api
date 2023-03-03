@@ -1,4 +1,6 @@
 using Blog.Core.Application;
+using Blog.Core.Application.Services.Abstract;
+using Blog.Core.Application.Services.Concrete;
 using Blog.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

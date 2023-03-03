@@ -6,11 +6,7 @@ using Blog.Core.RequestManager.Commands.Requests;
 using Blog.Core.RequestManager.Queries.Requests;
 using Blog.Core.RequestManager.Queries.Responses;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shared;
 
 namespace Blog.Core.Application.Services.Concrete
 {
@@ -18,36 +14,88 @@ namespace Blog.Core.Application.Services.Concrete
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
+        private readonly ResponseItemManager _responseItemManager;
 
-        public PostService(IPostRepository postRepository, IMapper mapper)
+        public PostService(IPostRepository postRepository, IMapper mapper, ResponseItemManager responseItemManager)
         {
             _postRepository = postRepository;
             _mapper = mapper;
+            _responseItemManager = responseItemManager;
         }
 
-        public async Task<IActionResult> Add(InsertPostRequestModel requestModel)
+        public  async Task<ResponseItem> Add(InsertPostCommandRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            var manager = _responseItemManager;
+            var mapPost = _mapper.Map<Post>(requestModel);
+            var  addPost = _postRepository.Add(mapPost);
+
+            if (await _postRepository.SaveAsync() < 1)
+            {
+                
+                return manager.Eror();
+            }
+            await _postRepository.SaveAsync();
+            return manager.Ok();
+        }
+        public async Task<ResponseItem> Update(UpdatePostCommandRequestModel requestModel)
+        {
+            var manager = _responseItemManager;
+            var getAsync = await _postRepository.GetAsync(x => x.Id == requestModel.Id);
+
+            try
+            {
+               var @null = getAsync == null;
+            }
+            catch (Exception)
+            {
+
+                return manager.Eror();
+            }
+
+            var mapPost = _mapper.Map<UpdatePostCommandRequestModel, Post>(requestModel, getAsync);
+            var updatepost = _postRepository.Update(mapPost);            
+            await _postRepository.SaveAsync();
+            return manager.Ok();
+
+        }
+        public async Task<ResponseItem> Delete(DeletePostCommandRequestModel requestModel)
+        {
+            var manager = _responseItemManager;
+            var getAsync = _postRepository.GetAsync(x => x.Id == requestModel.Id);
+            var mapPost = _mapper.Map<Post>(requestModel);
+
+            if (getAsync == null)
+            {
+                return manager.Eror();
+            }
+
+            var deletPost = await _postRepository.Delete(mapPost);
+
+            if (await _postRepository.SaveAsync() < 1)
+            {
+
+                return manager.Eror();
+            }
+            await _postRepository.SaveAsync();
+            return manager.Ok();
+
         }
 
-        public Task<IActionResult> Delete(DeletePostRequestModel requestModel)
+        public async Task<ResponseItem<List<PostQueriResponseModel>>> GetAll(GetAllPostQueriRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            var manager =  _responseItemManager;
+            var getAllpost = _postRepository.GetAll(x => x.Visible == true);
+            var mapPost = _mapper.Map<List<PostQueriResponseModel>>(getAllpost);
+            return manager.Ok(mapPost);
         }
 
-        public Task<List<PostResponseModel>> GetAll(GetAllPostRequestModel requestModel)
+        public async Task<ResponseItem<PostQueriResponseModel>> GetById(GetByIdPostQueriRequestModel requestModel)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<PostResponseModel> GetById(GetByIdPostRequestModel requestModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IActionResult> Update(UpdatePostRequestModel requestModel)
-        {
-            throw new NotImplementedException();
+            var manager = _responseItemManager;
+            var getAsync = await _postRepository.GetAsync(x => x.Id == requestModel.Id);              
+            var getByIdpost = _postRepository.GetById(getAsync, requestModel.Id);
+            var mapPost = _mapper.Map<PostQueriResponseModel>(getByIdpost);
+            return manager.Ok(mapPost);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Blog.Core.Domain.Entites;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace Blog.Core.Application.Repositories
 {
@@ -6,8 +8,10 @@ namespace Blog.Core.Application.Repositories
     {
         Task Add(TEntity entity);
         Task Update(TEntity entity);
-        Task Delete(Guid id);
-        Task<TEntity> GetById(Guid id);
-        IQueryable<TEntity> GetAll();
+        Task<TEntity> Delete(TEntity entity);
+        Task<TEntity> GetById(TEntity entity, Guid id);
+        IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int skip = 0, int take = 0, params Expression<Func<TEntity, object>>[] includes);
+        Task<int> SaveAsync();
+        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes);
     }
 }

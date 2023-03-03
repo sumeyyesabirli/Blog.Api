@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.RequestManager.Commands.Requests
 {
-    public class InsertPostRequestModel
+    public class InsertPostCommandRequestModel
     {
         public string Title { get; set; }
         public string Context { get; set; }

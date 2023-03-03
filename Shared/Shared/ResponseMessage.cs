@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blog.Core.RequestManager.Queries.Requests
+namespace Shared
 {
-    public class GetAllPostRequestModel
+    public class ResponseMessage
     {
+        public string Description { get; set; }
     }
 }

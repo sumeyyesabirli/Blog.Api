@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.RequestManager.Queries.Responses
 {
-    public class PostResponseModel:BaseResponse
+    public class PostQueriResponseModel:BaseResponse
     {
         public string Title { get; set; }
         public string Context { get; set; }

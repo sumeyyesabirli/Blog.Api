@@ -9,9 +9,9 @@ namespace Blog.Core.Application.Mappers
     {
         public PostProfile()
         {
-            CreateMap<InsertPostRequestModel, Post>();
-            CreateMap<UpdatePostRequestModel, Post>();
-            CreateMap<Post, PostResponseModel>();
+            CreateMap<InsertPostCommandRequestModel, Post>();
+            CreateMap<UpdatePostCommandRequestModel, Post>();
+            CreateMap<Post, PostQueriResponseModel>();
         }
     }
 }

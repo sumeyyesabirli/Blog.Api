@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blog.Core.RequestManager.Commands.Requests
+namespace Blog.Core.RequestManager.Queries.Requests
 {
-    public class DeletePostRequestModel
+    public class GetAllPostQueriRequestModel
     {
-        public Guid Id { get; set; }
     }
 }
