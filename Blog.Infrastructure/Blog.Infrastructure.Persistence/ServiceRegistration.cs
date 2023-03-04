@@ -1,4 +1,6 @@
-﻿using Blog.Infrastructure.Persistence.Contexts;
+﻿using Blog.Core.Application.Repositories;
+using Blog.Infrastructure.Persistence.Contexts;
+using Blog.Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,8 @@ namespace Blog.Infrastructure.Persistence
                     x.EnableSensitiveDataLogging();
             });
             services.TryAddScoped<DbContext, BlogDbContext>();
+
+            services.AddScoped<IPostRepository, PostRepository>();
         }
     }
 }

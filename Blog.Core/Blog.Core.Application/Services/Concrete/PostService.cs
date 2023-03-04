@@ -6,7 +6,7 @@ using Blog.Core.RequestManager.Commands.Requests;
 using Blog.Core.RequestManager.Queries.Requests;
 using Blog.Core.RequestManager.Queries.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Shared;
+using Shared.Response;
 
 namespace Blog.Core.Application.Services.Concrete
 {
@@ -80,7 +80,6 @@ namespace Blog.Core.Application.Services.Concrete
             return manager.Ok();
 
         }
-
         public async Task<ResponseItem<List<PostQueriResponseModel>>> GetAll(GetAllPostQueriRequestModel requestModel)
         {
             var manager =  _responseItemManager;

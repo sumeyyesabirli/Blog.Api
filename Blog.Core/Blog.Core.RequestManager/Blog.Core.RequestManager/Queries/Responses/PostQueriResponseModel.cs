@@ -1,4 +1,4 @@
-﻿using Shared;
+﻿using Shared.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;

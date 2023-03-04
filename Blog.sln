@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Core.RequestManager", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{CB07F39F-109C-415F-AD9E-F390B7FF0D05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared\Shared.csproj", "{BCE18CE2-398E-4408-8FBC-CD69C93D3037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared\Shared.csproj", "{BCE18CE2-398E-4408-8FBC-CD69C93D3037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

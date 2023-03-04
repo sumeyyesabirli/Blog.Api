@@ -1,7 +1,7 @@
 ﻿using Blog.Core.RequestManager.Commands.Requests;
 using Blog.Core.RequestManager.Queries.Requests;
 using Blog.Core.RequestManager.Queries.Responses;
-using Shared;
+using Shared.Response;
 
 namespace Blog.Core.Application.Services.Abstract
 {
