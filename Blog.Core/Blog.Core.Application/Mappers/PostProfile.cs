@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Blog.Core.Application.Services.Commands.Post.InsertPost;
+using Blog.Core.Application.Services.Commands.Post.UpdatePost;
+using Blog.Core.Application.Services.Queries.Post.GetAllPost;
+using Blog.Core.Application.Services.Queries.Post.GetByIdPost;
 using Blog.Core.Domain.Entites;
-using Blog.Core.RequestManager.Commands.Requests;
-using Blog.Core.RequestManager.Queries.Responses;
 
 namespace Blog.Core.Application.Mappers
 {
@@ -9,9 +11,12 @@ namespace Blog.Core.Application.Mappers
     {
         public PostProfile()
         {
-            CreateMap<InsertPostCommandRequestModel, Post>();
-            CreateMap<UpdatePostCommandRequestModel, Post>();
-            CreateMap<Post, PostQueriResponseModel>();
+            CreateMap<Post, GetByIdPostQueryResponse>();
+            CreateMap<Post, GetAllPostQueryResponse>();
+            CreateMap<Post, UpdatePostCommandRequest>().ReverseMap();
+            CreateMap<InsertPostCommandRequest, Post>();
+            CreateMap<UpdatePostCommandRequest, Post>();
+            CreateMap<UpdatePostCommandResponse, Post>().ReverseMap();
         }
     }
 }

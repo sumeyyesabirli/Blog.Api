@@ -1,5 +1,9 @@
+using AutoMapper;
 using Blog.Core.Application;
+using Blog.Core.Application.Mappers;
 using Blog.Infrastructure.Persistence;
+using MediatR;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +18,17 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
+
+
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod()
 ));
+
+var config = new MapperConfiguration(conf =>
+{
+    conf.AddProfile<PostProfile>();
+});
+builder.Services.AddScoped(s => config.CreateMapper());
 
 var app = builder.Build();
 
