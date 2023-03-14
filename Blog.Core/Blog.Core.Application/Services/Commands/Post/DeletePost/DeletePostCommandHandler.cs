@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
-using Blog.Core.Application.Services.Commands.Post.DeletePost;
 using Blog.Core.Application.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Constants;
+using Shared.Result;
 
 namespace Blog.Core.Application.Services.Commands.Post.DeletePost
 {
-    public class DeletePostCommandHandler : IRequestHandler<DeletePostCommandRequest,bool>
+    public class DeletePostCommandHandler : IRequestHandler<DeletePostCommandRequest, IResult>
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
@@ -17,29 +18,24 @@ namespace Blog.Core.Application.Services.Commands.Post.DeletePost
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(DeletePostCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(DeletePostCommandRequest request, CancellationToken cancellationToken)
         {
-            var getAsync = await _postRepository.GetAsync(x => x.Id == request.Id);
+            var  getId = await _postRepository.GetAsync(x => x.Id == request.Id);
           
-            if (getAsync == null)
+            if (getId == null)
             {
-                var result = new ObjectResult(new { error = "Id boş gelemez" })
-                {
-                    StatusCode = 500
-                };
+                return await Task.FromResult<IResult>(new ErrorResult(ResultMessages.IdErorPostDelete));
+             
             }
-            var deletPost =  await _postRepository.Delete(getAsync);
+            var deletPost =   _postRepository.Delete(getId);
 
             if (await _postRepository.SaveAsync() < 1)
             {
 
-                var result = new ObjectResult(new { error = "Veri Silinemedi" })
-                {
-                    StatusCode = 500
-                };
-            }      
+                return await Task.FromResult<IResult>(new ErrorResult(ResultMessages.ErorPostDelete));
+            }
 
-            return true;
+            return await Task.FromResult<IResult>(new SuccessResult(ResultMessages.SuccessPostDelete));
         }
     }
 }

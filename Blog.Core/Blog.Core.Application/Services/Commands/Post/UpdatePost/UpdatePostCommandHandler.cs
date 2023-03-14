@@ -2,7 +2,8 @@
 using Blog.Core.Application.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
+using Shared.Constants;
+using Shared.Result;
 
 namespace Blog.Core.Application.Services.Commands.Post.UpdatePost
 {
@@ -17,24 +18,22 @@ namespace Blog.Core.Application.Services.Commands.Post.UpdatePost
             _mapper = mapper;
         }
 
-        public async Task<UpdatePostCommandResponse> Handle(UpdatePostCommandRequest request, CancellationToken cancellationToken)
+        public  Task<UpdatePostCommandResponse> Handle(UpdatePostCommandRequest request, CancellationToken cancellationToken)
         {
-            var getAsync = _postRepository.GetAsync(x => x.Id == request.Id);
+            var getId =  _postRepository.GetAsync(x => x.Id == request.Id);
 
-            if (getAsync==null)
+            if (getId == null)
             {
-                var result = new ObjectResult(new { error = "Id boş gelemez" })
-                {
-                    StatusCode = 500
-                };
+                new ErrorResult(ResultMessages.IdErorPostDelete);
             }
-            var map = _mapper.Map<UpdatePostCommandRequest, Domain.Entites.Post>(request, getAsync);
-            var updatePost = _postRepository.Update(map);
-            var updateMap = _mapper.Map<UpdatePostCommandResponse>(updatePost);
-            await _postRepository.SaveAsync();                 
+            var map =   _mapper.Map<Domain.Entites.Post>(request);
+            var updatePost =  _postRepository.Update(map);
+            var mapProduct = _mapper.Map<UpdatePostCommandResponse>(updatePost);
+
+             _postRepository.SaveAsync();                 
         
             
-            return await Task.FromResult(updateMap);
+            return  Task.FromResult(mapProduct);
         }
     }
 }

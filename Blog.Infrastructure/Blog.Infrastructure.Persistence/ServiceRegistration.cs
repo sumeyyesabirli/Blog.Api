@@ -19,7 +19,7 @@ namespace Blog.Infrastructure.Persistence
                     .LogTo(x => Debug.WriteLine(x));
                     x.EnableSensitiveDataLogging();
             });
-            services.TryAddScoped<DbContext, BlogDbContext>();
+            services.AddScoped<DbContext, BlogDbContext>();
 
             services.AddScoped<IPostRepository, PostRepository>();
         }

@@ -23,8 +23,8 @@ namespace Blog.Core.Application.Services.Queries.Post.GetByIdPost
 
         public async Task<GetByIdPostQueryResponse> Handle(GetByIdPostQueryRequest request, CancellationToken cancellationToken)
         {
-            var getAsync = await _postRepository.GetAsync(x => x.Id == request.Id);
-            var mapPost = _mapper.Map<GetByIdPostQueryResponse>(getAsync);
+            var getId = await _postRepository.GetAsync(x => x.Id == request.Id);
+            var mapPost = _mapper.Map<GetByIdPostQueryResponse>(getId);
             return await Task.FromResult(mapPost);
         }
     }

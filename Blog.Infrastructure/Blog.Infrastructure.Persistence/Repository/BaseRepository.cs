@@ -17,12 +17,12 @@ namespace Blog.Infrastructure.Persistence.Repository
             _context = context;
         }
 
-        public Task Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Added;
-            return Task.FromResult(entity);            
+            return entity;            
         }
-        public async Task<TEntity> Delete(TEntity entity)
+        public  TEntity Delete(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Deleted;
             return entity;
@@ -33,18 +33,18 @@ namespace Blog.Infrastructure.Persistence.Repository
             return _context.Set<TEntity>();
         }
 
-        public  async Task<TEntity> GetById(TEntity entity,Guid id)
+        public   Task<TEntity> GetById(TEntity entity,Guid id)
         {
-            return await _context.Set<TEntity>().FirstOrDefaultAsync(p => p.Id == id);
+            return _context.Set<TEntity>().FirstOrDefaultAsync(p => p.Id == id);
         }     
-        public Task Update(TEntity entity)
+        public TEntity  Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            return Task.FromResult(entity);
+            return entity;
         }
-        public async Task<int> SaveAsync()
+        public  Task<int> SaveAsync()
         {
-            return await _context.SaveChangesAsync();
+            return  _context.SaveChangesAsync();
         }
         public virtual async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes)
         {

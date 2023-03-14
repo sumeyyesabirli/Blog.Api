@@ -6,9 +6,9 @@ namespace Blog.Core.Application.Repositories
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
-        Task Add(TEntity entity);
-        Task Update(TEntity entity);
-        Task<TEntity> Delete(TEntity entity);
+        TEntity Add(TEntity entity);
+        TEntity Update(TEntity entity);
+        TEntity Delete(TEntity entity);
         Task<TEntity> GetById(TEntity entity, Guid id);
         IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int skip = 0, int take = 0, params Expression<Func<TEntity, object>>[] includes);
         Task<int> SaveAsync();

@@ -8,7 +8,7 @@ namespace Blog.Core.Domain.Entites
 {
     public class Post:BaseEntity
     {
-         public string Title { get; set; }
+        public string Title { get; set; }
         public string Context { get; set; }
         public string Sunmary { get; set; }
         public string UrlHandle { get; set; }

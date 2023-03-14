@@ -27,14 +27,12 @@ namespace Blog.Presentation.Api.Controllers
                => Ok(await _mediator.Send(request));
 
             [HttpPut("{id}")]
-            public async Task<IActionResult> Update(UpdatePostCommandRequest request)
+            public async Task<IActionResult> Update([FromBody] UpdatePostCommandRequest request)
                 => Ok(await _mediator.Send(request));
-
 
             [HttpDelete("{id}")]
             public async Task<IActionResult> Delete(Guid id) =>
                 Ok(await _mediator.Send(new DeletePostCommandRequest { Id = id }));
-
 
             [HttpGet("{id}")]
             public async Task<IActionResult> GetById(Guid id) 
